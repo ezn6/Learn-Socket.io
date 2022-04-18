@@ -16,4 +16,8 @@ io.on('connection', (socket) => {
       socket.to(room).emit('receive-message', message);
     }
   });
+
+  socket.on('join-room', (room) => {
+    socket.join(room);
+  });
 });
