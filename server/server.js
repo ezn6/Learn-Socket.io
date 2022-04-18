@@ -4,6 +4,11 @@ const io = require('socket.io')(3000, {
   },
 });
 
+const userIo = io.of('/user');
+userIo.on('connection', (socket) => {
+  console.log('connected to user namespace');
+});
+
 io.on('connection', (socket) => {
   console.log(socket.id);
   // socket.on('custom-event', (num, str, obj) => console.log(num, str, obj)); //클라에서 받아온것
@@ -17,7 +22,8 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('join-room', (room) => {
+  socket.on('join-room', (room, cb) => {
     socket.join(room);
+    cb(`Joined ${room}`);
   });
 });

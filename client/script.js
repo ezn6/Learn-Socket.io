@@ -6,6 +6,7 @@ const roomInput = document.getElementById('room-input');
 const form = document.getElementById('form');
 
 const socket = io('http://localhost:3000'); //서버와 커넥트 하는것
+const userSocket = io('http://localhost:3000/user');
 socket.on('connect', () => {
   displayMessage(`You connected with id : ${socket.id}`);
 }); //서버에서 받아온 이벤트
@@ -30,7 +31,9 @@ form.addEventListener('submit', (e) => {
 
 joinRoomButton.addEventListener('click', () => {
   const room = roomInput.value;
-  socket.emit('join-room', room);
+  socket.emit('join-room', room, (roomName) => {
+    displayMessage(roomName);
+  });
 });
 
 function displayMessage(message) {
