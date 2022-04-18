@@ -6,9 +6,9 @@ const roomInput = document.getElementById('room-input');
 const form = document.getElementById('form');
 
 const socket = io('http://localhost:3000'); //서버와 커넥트 하는것
-// socket.on('connect', () => {
-//   displayMessage(`You connected with id : ${socket.id}`);
-// }); //서버에서 받아온 이벤트
+socket.on('connect', () => {
+  displayMessage(`You connected with id : ${socket.id}`);
+}); //서버에서 받아온 이벤트
 
 // socket.emit('custom-event', 10, 'Hi', { a: 'a' }); //클라에서 서버로 보내는 이벤트
 
@@ -23,7 +23,7 @@ form.addEventListener('submit', (e) => {
 
   if (message === '') return;
   displayMessage(message);
-  socket.emit('send-message', message);
+  socket.emit('send-message', message, room);
 
   messageInput.value = '';
 });
