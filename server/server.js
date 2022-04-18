@@ -6,8 +6,22 @@ const io = require('socket.io')(3000, {
 
 const userIo = io.of('/user');
 userIo.on('connection', (socket) => {
-  console.log('connected to user namespace');
+  console.log('connected to user namespace with username ' + socket.username);
 });
+
+userIo.use((socket, next) => {
+  if (socket.handshake.auth.token) {
+    socket.username = getUsernameFromToken(socket.handshake.auth.token);
+    next();
+  } else {
+    next(new Error('Please send token'));
+  }
+});
+
+function getUsernameFromToken(token) {
+  return token;
+  //이곳에서 db 접근 등 할수있는것이다.
+}
 
 io.on('connection', (socket) => {
   console.log(socket.id);
@@ -25,5 +39,9 @@ io.on('connection', (socket) => {
   socket.on('join-room', (room, cb) => {
     socket.join(room);
     cb(`Joined ${room}`);
+  });
+
+  socket.on('ping', (num) => {
+    console.log(num);
   });
 });
