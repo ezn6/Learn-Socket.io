@@ -2,7 +2,8 @@
 Learn Socket.io (https://www.youtube.com/watch?v=ZKEqqIO7n-k&amp;list=LL&amp;index=25&amp;t=580s)
 
 ## 💎 Socket.io tutorial
-- 설치한 패키지 : 클라-snowpack, socket-client / 서버-nodemon, socket
+- 설치한 패키지 : client-snowpack, socket-client / server-nodemon, socket
+- client : npm start / server : npm run devStart
 1. 일반적으로 fetch를 쓴다면 하나하나 전송할때마다 커넥션을 열어주어야 하지만, 소켓은 한번만 커넥션을 열어주면 서버-클라 간의 통신이 가능하다.
 2. CORS 에러뜨는 이유 : 서버포트는 3000, 클라포트는 8080으로 다르기 때문에.
 서버에서 아래와 같은 설정을 해주면 된다.
